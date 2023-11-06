@@ -33,4 +33,15 @@ export default class UserService {
       return ctx.response.status(500).json({ error: "Internal Server Error" });
     }
   }
+
+  /**
+   * profile
+   */
+  public async profile(ctx: HttpContextContract) {
+    try {
+      return await this.userQuery.profile(ctx.auth.user?.id);
+    } catch (error) {
+      return ctx.response.status(500).json({ error: "Internal Server Error" });
+    }
+  }
 }

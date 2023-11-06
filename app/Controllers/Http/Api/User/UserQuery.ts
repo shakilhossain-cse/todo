@@ -19,4 +19,11 @@ export default class UserQuery {
       data: todo,
     };
   }
+
+  /**
+   * profile method for  ger user data with post
+   */
+  public async profile(id: number) {
+    return await User.query().where("id", id).preload("todo").firstOrFail();
+  }
 }

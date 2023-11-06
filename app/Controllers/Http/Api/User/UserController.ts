@@ -26,4 +26,10 @@ export default class UserController {
     await this.userValidator.validateUserLoginSchema(ctx);
     return await this.userService.login(ctx);
   }
+  /**
+   * profile
+   */
+  public async profile() {
+
+  }
 }
