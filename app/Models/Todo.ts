@@ -1,6 +1,14 @@
 import { DateTime } from "luxon";
-import { BaseModel, BelongsTo, belongsTo, column } from "@ioc:Adonis/Lucid/Orm";
+import {
+  BaseModel,
+  BelongsTo,
+  HasMany,
+  belongsTo,
+  column,
+  hasMany,
+} from "@ioc:Adonis/Lucid/Orm";
 import User from "./User";
+import Comment from "./Comment";
 
 export default class Todo extends BaseModel {
   @column({ isPrimary: true })
@@ -23,4 +31,7 @@ export default class Todo extends BaseModel {
 
   @belongsTo(() => User, { localKey: "id", foreignKey: "user_id" })
   public creator: BelongsTo<typeof User>;
+
+  @hasMany(() => Comment, { localKey: "id", foreignKey: "todo_id" })
+  public comments: HasMany<typeof Comment>;
 }
