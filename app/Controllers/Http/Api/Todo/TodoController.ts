@@ -13,28 +13,20 @@ export default class TodoController {
    * getAllTodo
    */
   public async getAllTodo() {
-    const todos = await this.todoService.getTodos();
-    return todos;
+    return await this.todoService.getTodos();
   }
   /**
    * create todo
    */
   public async createTodo(ctx: HttpContextContract) {
     await this.todoValidator.validateTodoSchema(ctx);
-    const todo = await this.todoService.createTodo(ctx);
-    return { message: "todo created successfully", data: todo };
+    return await this.todoService.createTodo(ctx);
   }
 
   /**
    * deleteTodo
    */
-  public async deleteTodo({ response, params }: HttpContextContract) {
-    try {
-      const todo = await this.todoService.deleteTodo(params.id);
-      return { message: "todo deleted successfully", data: todo };
-    } catch (error) {
-      console.log(error);
-      response.internalServerError({ message: "something went wrong" });
-    }
+  public async deleteTodo(ctx: HttpContextContract) {
+    return await this.todoService.deleteTodo(ctx);
   }
 }

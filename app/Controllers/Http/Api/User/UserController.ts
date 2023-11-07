@@ -19,17 +19,17 @@ export default class UserController {
     return await this.userService.register(ctx);
   }
 
-   /**
+  /**
    * login
    */
-   public async login(ctx: HttpContextContract) {
+  public async login(ctx: HttpContextContract) {
     await this.userValidator.validateUserLoginSchema(ctx);
     return await this.userService.login(ctx);
   }
   /**
    * profile
    */
-  public async profile() {
-
+  public async profile(ctx: HttpContextContract) {
+    return this.userService.profile(ctx);
   }
 }

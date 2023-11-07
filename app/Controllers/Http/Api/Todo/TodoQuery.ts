@@ -5,16 +5,19 @@ export default class TodoQuery {
    * index method for get all todos
    */
   public async index(): Promise<Todo[]> {
-    const data = await Todo.query().preload('creator', (query) => {query.select(['name', 'email', 'image'])}).paginate(1);
-    return data;
+   return await Todo.query()
+      .preload("creator", (query) => {
+        query.select(["name", "email", "image"]);
+      })
+      .paginate(1);
   }
 
   /**
    * index method for store todo
    */
-  public async store(auth: any, data: Todo): Promise<Todo> {
-    const todo = Todo.create({ ...data, user_id: auth.id });
-    return todo;
+  public async store(userId: number, data: Todo): Promise<Todo> {
+    return Todo.create({ ...data, user_id: userId });
+
   }
 
   /**

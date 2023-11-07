@@ -18,11 +18,12 @@
 |
 */
 
-import Route from '@ioc:Adonis/Core/Route'
+import Route from "@ioc:Adonis/Core/Route";
 
 import "App/Controllers/Http/Api/Todo/todo";
 import "App/Controllers/Http/Api/User/user";
+import "App/Controllers/Http/Api/Comment/comment";
 
-Route.get('/', async () => {
-  return { hello: 'world' }
-})
+Route.get("/", async () => {
+  return { hello: "world" };
+});

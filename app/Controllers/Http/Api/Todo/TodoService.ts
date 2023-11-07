@@ -20,16 +20,25 @@ export default class ExampleService {
    */
   public async createTodo(ctx: HttpContextContract) {
     const data = ctx.request.only(["title", "is_completed"]);
-    const todo = await this.todoQuery.store(ctx.auth,data);
-    return todo;
+
+    try {
+      const todo = await this.todoQuery.store(ctx.auth.user?.id, data);
+      return { message: "todo created successfully", data: todo };
+    } catch (error) {
+      ctx.response.internalServerError("something went wrong");
+    }
   }
 
   /**
    * Delete todo
    */
 
-  public async deleteTodo(id:number) {
-    const todo = await this.todoQuery.destroy(id);
-    return todo;
+  public async deleteTodo(ctx: HttpContextContract) {
+    try {
+      const todo = await this.todoQuery.destroy(ctx.params.id);
+      return { message: "todo deleted successfully", data: todo };
+    } catch (error) {
+      ctx.response.internalServerError({ message: "something went wrong" });
+    }
   }
 }
