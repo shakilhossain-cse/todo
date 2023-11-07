@@ -22,4 +22,5 @@ export default class TodoValidator {
       return ctx.response.status(422).send(error.messages);
     }
   }
+
 }

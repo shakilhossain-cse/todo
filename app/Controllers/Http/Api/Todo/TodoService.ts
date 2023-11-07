@@ -25,10 +25,34 @@ export default class ExampleService {
       const todo = await this.todoQuery.store(ctx.auth.user?.id, data);
       return { message: "todo created successfully", data: todo };
     } catch (error) {
-      ctx.response.internalServerError("something went wrong");
+      return ctx.response.internalServerError("something went wrong");
     }
   }
 
+  /**
+   * view Todo
+   */
+  public async viewTodo(ctx: HttpContextContract) {
+    try {
+      return await this.todoQuery.show(ctx.params.id);
+    } catch (error) {
+      return ctx.response.internalServerError("something went wrong");
+    }
+  }
+
+
+
+  /**
+   * update Todo
+   */
+  public async updateTodo(ctx:HttpContextContract) {
+    try {
+      const data = ctx.request.only(['title', 'is_completed'])
+      return await this.todoQuery.update(ctx.params.id, data)
+    } catch (error) {
+      return ctx.response.internalServerError("something went wrong");
+    }
+  }
   /**
    * Delete todo
    */
@@ -38,7 +62,9 @@ export default class ExampleService {
       const todo = await this.todoQuery.destroy(ctx.params.id);
       return { message: "todo deleted successfully", data: todo };
     } catch (error) {
-      ctx.response.internalServerError({ message: "something went wrong" });
+      return ctx.response.internalServerError({
+        message: "something went wrong",
+      });
     }
   }
 }

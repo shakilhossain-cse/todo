@@ -24,6 +24,20 @@ export default class TodoController {
   }
 
   /**
+   * show todo
+   */
+  public async showTodo(ctx: HttpContextContract) {
+    return await this.todoService.viewTodo(ctx);
+  }
+
+  /**
+   * update todo
+   */
+  public async updateTodo(ctx:HttpContextContract) {
+    await this.todoValidator.validateTodoSchema(ctx)
+  }
+
+  /**
    * deleteTodo
    */
   public async deleteTodo(ctx: HttpContextContract) {
